@@ -1,0 +1,73 @@
+# ═══════════════════════════════════════════════════
+#  XAVFSIZ .htaccess — ELDER STARS BOT
+# ═══════════════════════════════════════════════════
+
+# 1) Katalog ro'yxatini o'chirish
+Options -Indexes
+
+# 2) Asosiy kirish nuqtasi
+DirectoryIndex index.php
+
+# 3) Data papkasini to'liq bloklash (JSON fayllar + barcha data)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # /data/ papkasiga to'g'ridan-to'g'ri kirish man etiladi
+    RewriteRule ^data/.*$ - [F,L]
+</IfModule>
+
+# 4) Ichki PHP fayllarini veb orqali bloklash
+<FilesMatch "^(config|db|telegram|keyboards|stars_api|payment_api|handlers|gifts_handlers|gifts_keyboards|premium_api|sendGift|cron|login|do_login)\\.php$">
+    Order deny,allow
+    Deny from all
+</FilesMatch>
+
+# 5) JSON fayllarni bloklash
+<FilesMatch "\\.json$">
+    Order deny,allow
+    Deny from all
+</FilesMatch>
+
+# 6) .env faylni bloklash (maxfiy o'zgaruvchilar)
+<FilesMatch "^\\.env$">
+    Order deny,allow
+    Deny from all
+</FilesMatch>
+
+# 7) Log fayllarni bloklash
+<FilesMatch "\\.log$">
+    Order deny,allow
+    Deny from all
+</FilesMatch>
+
+# 8) session.madeline faylni bloklash
+<FilesMatch "^session\\.madeline">
+    Order deny,allow
+    Deny from all
+</FilesMatch>
+
+# 9) Faqat index.php va admin.php ga ruxsat (ommaviy)
+<Files "index.php">
+    Order allow,deny
+    Allow from all
+</Files>
+
+<Files "admin.php">
+    Order allow,deny
+    Allow from all
+</Files>
+
+# 10) Xavfsizlik sarlavhalari
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "DENY"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'"
+</IfModule>
+
+# 11) PHP xato xabarlarini yashirish
+<IfModule mod_php.c>
+    php_flag display_errors Off
+    php_flag log_errors On
+</IfModule>
