@@ -1,9 +1,6 @@
 # Секреты
 .env
 
-# Зависимости (Railway сам установит через composer install)
-vendor/
-
 # Логи
 *.log
 

@@ -1,8 +1,5 @@
 [phases.setup]
-nixPkgs = ["php85", "php85Extensions.pdo", "php85Extensions.pdo_mysql", "php85Extensions.mysqlnd", "php85Extensions.curl", "php85Extensions.mbstring", "php85Extensions.json", "php85Extensions.openssl", "composer"]
-
-[phases.install]
-cmds = ["composer install --no-dev --optimize-autoloader"]
+nixPkgs = ["php85", "php85Extensions.pdo", "php85Extensions.pdo_mysql", "php85Extensions.mysqlnd", "php85Extensions.curl", "php85Extensions.mbstring", "php85Extensions.json", "php85Extensions.openssl"]
 
 [start]
 cmd = "php -S 0.0.0.0:$PORT"
